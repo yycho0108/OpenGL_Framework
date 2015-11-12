@@ -16,6 +16,7 @@
 #include <string.h>
 #include <functional>
 
+extern char** dummy;
 class App{
 	protected:
 		GLFWwindow* window;
@@ -23,7 +24,7 @@ class App{
 		float elapsedTime;
 		// Objects...
 	public:
-		App(int argc, char** argv);
+		App(int argc=0, char** argv=dummy);
 		void run();
 		virtual void display()=0;
 		virtual void init()=0;

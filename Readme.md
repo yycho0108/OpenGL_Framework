@@ -11,7 +11,10 @@ Example :
 ``` c++
 class myApp:public App{
 	public:
-	myApp(int argc, char** argv):App(argc,argv){};
+	myApp():App(){};
+
+	//if command line arguments are desirable
+	//myApp(int argc, char** argv):App(argc,argv){};
 
 	void display(){
 		//drawing body
@@ -24,7 +27,10 @@ class myApp:public App{
 
 //Usage
 int main(int argc, char** argv){
-	myApp drawCube(argc,argv);
+	//if command line arguments are desirable
+	//myApp drawCube(argc,argv); 
+
+	myApp drawCube();
 	drawCube.init();
 	drawCube.run();
 	return 0;
@@ -37,14 +43,14 @@ int main(int argc, char** argv){
 Example :
 
 ``` c++
-> //initializing an object
-> GLObject* Cube = new GLObject();
-> Cube->push(vertexPositions);
-> Cube->push(vertexColors);
-> Cube->push(vertexIndices);
-> //drawing an object
-> Cube->apply();
-> Cube->draw();
+ //initializing an object
+ GLObject* Cube = new GLObject();
+ Cube->push(vertexPositions);
+ Cube->push(vertexColors);
+ Cube->push(vertexIndices);
+ //drawing an object
+ Cube->apply();
+ Cube->draw();
 ```
 
 ## *GLAttrib
@@ -53,7 +59,7 @@ Example :
 Example :
 
 ``` c++
-> GLAttrib* vertexPositions = new GLAttrib(vPosData,size,elemSize,AttribLocation);
+ GLAttrib* vertexPositions = new GLAttrib(vPosData,size,elemSize,AttribLocation);
 ```
 
 ## *GLBuffer
@@ -62,8 +68,8 @@ Example :
 Example :
 
 ``` c++
-> // binds to GL_ELEMENT_ARRAY_BUFFER
-> GLBuffer* vertexIndices = new GLBuffer(vIndData,GL_ELEMENT_ARRAY_BUFFER,size,typeSize,elemSize);
+ // binds to GL_ELEMENT_ARRAY_BUFFER
+ GLBuffer* vertexIndices = new GLBuffer(vIndData,GL_ELEMENT_ARRAY_BUFFER,size,typeSize,elemSize);
 ```
 
 ## *GLShader
@@ -72,8 +78,8 @@ Example :
 Example :
 
 ``` c++
-> GLShader v(GL_VERTEX_SHADER,"vShader.txt")
-> //or alternatively with a full source string
+ GLShader v(GL_VERTEX_SHADER,"vShader.txt")
+ //or alternatively with a full source string
 ```
 
 ## *GLProgram
@@ -82,9 +88,9 @@ Example :
 Example :
 
 ``` c++
-> //initialize
-> GLProgram* shaderProgram = new GLProgram(shaderList);
-> //use
-> glUseProgram(*shaderProgram);
+ //initialize
+ GLProgram* shaderProgram = new GLProgram(shaderList);
+ //use
+ glUseProgram(*shaderProgram);
 ```
 

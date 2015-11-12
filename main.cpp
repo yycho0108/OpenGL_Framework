@@ -60,8 +60,8 @@ float angle = 0;
 
 class myApp:public App{
 	public:
+	myApp():App(){};
 	myApp(int argc, char** argv):App(argc,argv){};
-
 	void display(){
 		glClearColor(1.0,0.0,0.0,1.0);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -120,8 +120,9 @@ class myApp:public App{
 	};
 };
 
-int main(int argc, char** argv){
-	myApp my_App(argc,argv);
+int main(){
+	//myApp my_App(argc,argv);
+	myApp my_App;
 	my_App.init();
 	my_App.run();
 	return 0;
