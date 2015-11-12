@@ -76,7 +76,6 @@ void init(){
 	auto vPos = new GLAttrib(::vCubePos,sizeof(::vCubePos),3,0);
 	auto vCol = new GLAttrib(::vCubeCol,96*sizeof(float),4,1);
 	auto vInd = new GLBuffer((void*)::vCubeFace,GL_ELEMENT_ARRAY_BUFFER,sizeof(vCubeFace),sizeof(*vCubeFace),3);
-	GLBuffer vDummy((void*)"1,2,3,4,5",GL_ARRAY_BUFFER,sizeof("1,2,3,4,5"),sizeof('0'),1);
 	Cube->push(*vPos);
 	Cube->push(*vCol);
 	Cube->push(*vInd);
