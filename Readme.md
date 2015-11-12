@@ -93,4 +93,22 @@ Example :
  //use
  glUseProgram(*shaderProgram);
 ```
+# Next Steps
+* Add Scene
+	* Separate Viewports
+	* Contain Objects
+* Add Camera
+* Add Interactivity
+	* Mouse
+		* Rotate View
+		* Object Selection
+	* Keyboard
+		* Mobilitiy
+		* Other Commands
+* Add Texture
+* Add Instantiation
+* Add Lights
+	* Specular
+	* Point
+	* Directional
 
