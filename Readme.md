@@ -111,4 +111,11 @@ Example :
 	* Specular
 	* Point
 	* Directional
+* Add Animation
+	* Blender
+* Add Loading Models
+	* obj files
 
+### IFs
+* Localized Coordinates?
+* Orientations?
