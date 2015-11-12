@@ -9,10 +9,26 @@ Each of the classes are relatively simple, and is intuitively named:
 Example :
 
 ``` c++
-> App myApp(argc,argv);
-> myApp.setInit(init); //setup function
-> myApp.setDisplay(display); //drawing function
-> myApp.run(); //continuous loop
+class myApp:public App{
+	public:
+	myApp(int argc, char** argv):App(argc,argv){};
+
+	void display(){
+		//drawing body
+	}
+	
+	void init(){
+		//initializing body
+	};
+};
+
+//Usage
+int main(int argc, char** argv){
+	myApp drawCube(argc,argv);
+	drawCube.init();
+	drawCube.run();
+	return 0;
+}
 ```
 
 ## *GLObject
