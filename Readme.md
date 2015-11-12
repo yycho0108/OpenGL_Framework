@@ -7,15 +7,16 @@ Each of the classes are relatively simple, and is intuitively named:
 ### Manages the overall application
 
 Example :
+
 ``` c++
 > App myApp(argc,argv);
 > myApp.setInit(init); //setup function
 > myApp.setDisplay(display); //drawing function
 > myApp.run(); //continuous loop
+```
 
 ## *GLObject
 ### Manages an object (i.e. what to be drawn)
-```
 
 Example :
 
