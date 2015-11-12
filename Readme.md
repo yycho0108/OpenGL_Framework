@@ -7,6 +7,7 @@ Each of the classes are relatively simple, and is intuitively named:
 ### Manages the overall application
 
 Example :
+``` c++
 > App myApp(argc,argv);
 > myApp.setInit(init); //setup function
 > myApp.setDisplay(display); //drawing function
@@ -14,8 +15,11 @@ Example :
 
 ## *GLObject
 ### Manages an object (i.e. what to be drawn)
+```
 
 Example :
+
+``` c++
 > //initializing an object
 > GLObject* Cube = new GLObject();
 > Cube->push(vertexPositions);
@@ -24,32 +28,46 @@ Example :
 > //drawing an object
 > Cube->apply();
 > Cube->draw();
+```
 
 ## *GLAttrib
 ### Manages vertex attributes
 
 Example :
+
+``` c++
 > GLAttrib* vertexPositions = new GLAttrib(vPosData,size,elemSize,AttribLocation);
+```
 
 ## *GLBuffer
 ### Manages general-purpose buffers
 
 Example :
+
+``` c++
 > // binds to GL_ELEMENT_ARRAY_BUFFER
 > GLBuffer* vertexIndices = new GLBuffer(vIndData,GL_ELEMENT_ARRAY_BUFFER,size,typeSize,elemSize);
+```
 
 ## *GLShader
 ### Thin Wrapper to shader
 
 Example :
+
+``` c++
 > GLShader v(GL_VERTEX_SHADER,"vShader.txt")
 > //or alternatively with a full source string
+```
 
 ## *GLProgram
 ### Thin Wrapper to shaderProgram
 
 Example :
+
+``` c++
 > //initialize
 > GLProgram* shaderProgram = new GLProgram(shaderList);
 > //use
 > glUseProgram(*shaderProgram);
+```
+
