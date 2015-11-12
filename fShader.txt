@@ -1,0 +1,16 @@
+#version 330 core
+
+precision mediump float;
+in vec4 vCol;
+
+vec4 lerp(vec4 a, vec4 b, float t){
+return a*t + b*(1-t);
+}
+
+void main(void){
+vec4 dummy = lerp(vCol,gl_FragCoord/500.0f,0.5);
+dummy.z = 1.0;
+//gl_FragColor = dummy.zzzz;
+gl_FragColor = lerp(vCol,gl_FragCoord/500.0f,0.5);
+//gl_FragColor = vec4(1.0,0.0,1.0,1.0);
+}

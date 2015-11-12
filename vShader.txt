@@ -1,0 +1,16 @@
+#version 330 core
+
+layout(location = 0) in vec3 vPos;
+layout(location = 1) in vec4 vCol_in;
+
+uniform mat4 mMat;
+uniform mat4 pMat;
+uniform mat4 vMat;
+
+out vec4 vCol;
+
+void main(void){
+gl_Position = pMat*vMat*mMat*vec4(vPos,1.0);
+vCol = vCol_in;
+}
+
