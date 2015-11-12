@@ -17,18 +17,16 @@
 #include <functional>
 
 class App{
-	private:
+	protected:
 		GLFWwindow* window;
 		float startTime;
 		float elapsedTime;
-		std::function<void()> init;
-		std::function<void()> display;
 		// Objects...
 	public:
 		App(int argc, char** argv);
 		void run();
-		void setInit(std::function<void()> init);
-		void setDisplay(std::function<void()> display);
+		virtual void display()=0;
+		virtual void init()=0;
 		~App();
 };
 #endif

@@ -21,7 +21,6 @@ GLObject::GLObject(){
 	}
 	void GLObject::draw(){
 		if(Buffers.size() > 0){
-			std::cout << 4*Buffers[0].getSize() << std::endl;
 			glDrawElements(GL_TRIANGLES,Buffers[0].getSize(),GL_UNSIGNED_SHORT,0);
 			//glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,0);
 		}
