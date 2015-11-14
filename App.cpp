@@ -32,6 +32,13 @@ void App::run(){
 	}while(glfwGetKey(window,GLFW_KEY_ESCAPE) != GLFW_PRESS
 		&& glfwWindowShouldClose(window) == 0);
 }
+
+void App::setKey(GLFWkeyfun key){
+	glfwSetKeyCallback(window,key);
+}
+void App::setMouse(GLFWcursorposfun mouse){
+	glfwSetCursorPosCallback(window,mouse);
+}
 //reshape
 //etc..
 App::~App(){

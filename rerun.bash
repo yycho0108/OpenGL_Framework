@@ -2,4 +2,4 @@
 
 make clean
 make
-./first_2
+./main

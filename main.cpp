@@ -2,12 +2,14 @@
 #include "GLShader.h"
 #include "GLObject.h"
 #include "App.h"
-#include </home/jamiecho/Downloads/glm/glm/glm.hpp>
-#include "/home/jamiecho/Downloads/glm/glm/gtc/matrix_transform.hpp"
-#include "/home/jamiecho/Downloads/glm/glm/gtc/type_ptr.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-GLProgram* shaderProgram;
-GLObject* Cube;
+std::shared_ptr<GLProgram> shaderProgram;
+std::shared_ptr<GLObject> Cube;
+std::shared_ptr<GLObject> Cube_2;
+//GLObject* Cube;
 
 const unsigned short vCubeFace[] = {
   0,  1,  2,      0,  2,  3,    // front
@@ -56,12 +58,12 @@ float vCubePos[] = {
 };
 
 float vCubeCol[4*24];
-float angle = 0;
-
 class myApp:public App{
+	private:
+		bool depthClampEnabled=false;
 	public:
 	myApp():App(){};
-	myApp(int argc, char** argv):App(argc,argv){};
+	//myApp(int argc, char** argv):App(argc,argv){};
 	void display(){
 		glClearColor(1.0,0.0,0.0,1.0);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -74,20 +76,23 @@ class myApp:public App{
 		std::cout << numUniform << ',' << numAttrib <<std::endl;
 		*/
 
-		glm::mat4 mMat;
-		mMat = glm::rotate(mMat,glm::radians(angle+=5),glm::vec3(0.50f,0.76f,0.29f));
 		//mMat = glm::translate(mMat,glm::vec3(0,0,0));
 		glm::mat4 pMat = glm::perspective(45.0f,1.0f,0.1f,100.0f);
 		glm::mat4 vMat = glm::lookAt(glm::vec3(0.0f,0.0f,-5.0f),glm::vec3(0.0,0.0,0.0),glm::vec3(0.0,1.0,0.0));
-		//mMat = glm::translate(mMat, glm::vec3(0.5,0.5,0.0));
-		//mMat = glm::translate(mMat,glm::vec3(0.5,-0.5,0.0));
-		//char uName[20];
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgram,"mMat"),1,GL_FALSE,glm::value_ptr(mMat));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgram,"pMat"),1,GL_FALSE,glm::value_ptr(pMat));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgram,"vMat"),1,GL_FALSE,glm::value_ptr(vMat));
-
+		Cube->setAxis(glm::vec3(0.0f,0.0f,0.9f));
+		Cube->offsetAngle(1.0f);
+		//Cube->offsetPos(glm::vec3(0.01f,0.0f,0.0f));
 		Cube->apply();
 		Cube->draw();
+		
+		Cube_2->setAxis(glm::vec3(0.0f,0.0f,0.5f));
+		Cube_2->offsetAngle(-1.0f);
+		//Cube_2->offsetPos(glm::vec3(0.0f,0.0f,-0.1f));
+		Cube_2->apply();
+		Cube_2->draw();
+
 	}
 	
 	void init(){
@@ -97,9 +102,12 @@ class myApp:public App{
 
 		shaderList.push_back(v);
 		shaderList.push_back(f);
-		shaderProgram = new GLProgram(shaderList);
-		Cube = new GLObject();
+		shaderProgram.reset(new GLProgram(shaderList));
 		
+		Cube.reset(new GLObject());
+		Cube->relocate(*shaderProgram);
+		Cube_2.reset(new GLObject());
+		Cube_2->relocate(*shaderProgram);
 		for(int i=0;i<96;i+=4){
 			vCubeCol[i] = rand()/float(RAND_MAX);
 			vCubeCol[i+1] = rand()/float(RAND_MAX);
@@ -112,17 +120,41 @@ class myApp:public App{
 		Cube->push(*vPos);
 		Cube->push(*vCol);
 		Cube->push(*vInd);
+		Cube_2->push(*vPos);
+		Cube_2->push(*vCol);
+		Cube_2->push(*vInd);
 		delete vPos;
 		delete vCol;
 		delete vInd;
 		glEnable(GL_DEPTH_TEST);
-
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
+		//glFrontFace(GL_CW);
+		Cube->setPos(glm::vec3(1.0f,0.0f,5.0f));
+		Cube_2->setPos(glm::vec3(0.0f,0.0f,6.0f));
 	};
 };
+void mouseEvent(GLFWwindow* window, double xPos, double yPos){
+	// do nothing
+}
+void keyboardEvent(GLFWwindow* window, int key, int scanCode, int action, int mods){
+	static bool depthClampEnabled = false;
+	if(action == GLFW_PRESS){
+			switch(key){
+				case GLFW_KEY_SPACE:
+					depthClampEnabled = !depthClampEnabled;
+					depthClampEnabled?glEnable(GL_DEPTH_CLAMP):glDisable(GL_DEPTH_CLAMP);
+					break;
+				}
+	}
+}
+
 
 int main(){
-	//myApp my_App(argc,argv);
 	myApp my_App;
+	//myApp my_App(argc,argv);
+	my_App.setKey(keyboardEvent);
+	my_App.setMouse(mouseEvent);
 	my_App.init();
 	my_App.run();
 	return 0;
