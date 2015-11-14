@@ -24,8 +24,20 @@
 
 class GLObject{
 	private:
+		class _matStack{
+			friend class GLObject;
+			std::list<glm::mat4> stack;
+			GLint loc;
+			_matStack(GLint loc=-1);
+			~_matStack();
+			glm::mat4& top();
+			void push(const glm::mat4&);
+			void pop();
+			void apply();
+		};
+	private:
 		GLuint vao;
-		static GLint mMatLoc;
+		static _matStack matStack;
 		std::vector<GLAttrib> Attribs;
 		std::vector<GLBuffer> Buffers;//namely, vertex Indices
 		std::list<GLObject*> Children;
@@ -49,7 +61,7 @@ class GLObject{
 		void push(std::shared_ptr<GLObject>& child);
 		void push(GLObject* child);
 		void apply();
-		void draw(const glm::mat4& absMat);
+		void draw();
 		void relocate(GLuint shaderProgram);
 		//update
 		~GLObject();

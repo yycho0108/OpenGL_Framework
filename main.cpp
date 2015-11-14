@@ -78,18 +78,17 @@ class myApp:public App{
 
 		//mMat = glm::translate(mMat,glm::vec3(0,0,0));
 		glm::mat4 pMat = glm::perspective(45.0f,1.0f,0.1f,100.0f);
-		glm::mat4 vMat = glm::lookAt(glm::vec3(0.0f,0.0f,-5.0f),glm::vec3(0.0,0.0,0.0),glm::vec3(0.0,1.0,0.0));
+		glm::mat4 vMat = glm::lookAt(glm::vec3(0.0f,20.0f,-1.0f),glm::vec3(0.0,0.0,0.0),glm::vec3(0.0,1.0,0.0));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgram,"pMat"),1,GL_FALSE,glm::value_ptr(pMat));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgram,"vMat"),1,GL_FALSE,glm::value_ptr(vMat));
-		Cube->setAxis(glm::vec3(0.0f,0.0f,0.9f));
+		Cube->setAxis(glm::vec3(0.0f,0.0f,1.0f));
 		Cube->offsetAngle(1.0f);
 		//Cube->offsetPos(glm::vec3(0.01f,0.0f,0.0f));
-		Cube_2->setAxis(glm::vec3(0.0f,1.0f,0.2f));
-		Cube_2->offsetAngle(-1.0f);
+		Cube_2->setAxis(glm::vec3(0.0f,1.0f,0.0f));
+		Cube_2->offsetAngle(-5.0f);
 		
-		Cube->apply();
-		Cube->draw(glm::mat4());
-		
+		Cube->draw();
+		//Cube_2->draw();
 		//Cube_2->apply();
 		//Cube_2->draw(glm::mat4());
 
@@ -130,8 +129,8 @@ class myApp:public App{
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
 		//glFrontFace(GL_CW);
-		Cube->setPos(glm::vec3(1.0f,0.0f,5.0f));
-		Cube_2->setPos(glm::vec3(0.0f,0.0f,2.0f));
+		Cube->setPos(glm::vec3(1.0f,1.0f,0.0f));
+		Cube_2->setPos(glm::vec3(0.0f,0.0f,5.0f));
 		Cube->push(Cube_2);
 	};
 };

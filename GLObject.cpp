@@ -1,8 +1,27 @@
 #include "GLObject.h"
-std::list<glm::mat4> absMat;
-GLint GLObject::mMatLoc = -1;
+GLObject::_matStack GLObject::matStack;
 
+GLObject::_matStack::_matStack(GLint loc):loc{loc}{
+	stack.push_back(glm::mat4());
+}
+GLObject::_matStack::~_matStack(){
 
+}
+glm::mat4& GLObject::_matStack::top(){
+	return stack.back();
+}
+void GLObject::_matStack::push(const glm::mat4& newMat){
+	stack.push_back(stack.back()*newMat);
+	//RIGHT = NEW
+}
+
+void GLObject::_matStack::pop(){
+	stack.pop_back();
+}
+
+void GLObject::_matStack::apply(){
+	glUniformMatrix4fv(loc,1,GL_FALSE,glm::value_ptr(top()));
+}
 GLObject::GLObject():angle{0.0f}{
 		glGenVertexArrays(1,&vao);
 }
@@ -54,22 +73,22 @@ GLObject::GLObject():angle{0.0f}{
 			b.apply();
 		}
 	}
-	void GLObject::draw(const glm::mat4& absMat){	
-		auto myMat = absMat *this->mMat;
-		glUniformMatrix4fv(mMatLoc,1,GL_FALSE,glm::value_ptr(myMat));
+	void GLObject::draw(){
+		this->apply();
+		matStack.push(this->mMat);
+		matStack.apply();	
 		
 		glDrawElements(GL_TRIANGLES,Buffers[0].getSize(),GL_UNSIGNED_SHORT,0);
+		//or glDrawArays, or any other function.
 		//TENTATIVE
-		
-		//glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,0);
 		for (auto c : Children){
-			c->apply();
-			c->draw(myMat);
+			c->draw();
 		}
 
+		matStack.pop();
 		//glDrawArrays(GL_TRIANGLES,0,3);
 	}
 void GLObject::relocate(GLuint shaderProgram){
-	mMatLoc = glGetUniformLocation(shaderProgram,"mMat");
+	matStack.loc = glGetUniformLocation(shaderProgram,"mMat");
 }
 GLObject::~GLObject(){};
