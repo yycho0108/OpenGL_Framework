@@ -130,7 +130,10 @@ class myApp:public App{
 		//glCullFace(GL_BACK);
 		//glFrontFace(GL_CW);
 		Cube->setPos(glm::vec3(1.0f,1.0f,0.0f));
+		Cube->setScale(glm::vec3(2.0f,2.0f,2.0f));
 		Cube_2->setPos(glm::vec3(0.0f,0.0f,5.0f));
+		Cube_2->setScale(glm::vec3(0.5f,0.5f,2.0f));
+
 		Cube->push(Cube_2);
 	};
 };

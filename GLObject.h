@@ -44,6 +44,7 @@ class GLObject{
 		glm::mat4 mMat;
 		glm::vec3 Position;
 		glm::vec3 RotAxis;
+		glm::vec3 Scale;
 		GLfloat angle;
 	public:	
 		GLObject();
@@ -53,8 +54,11 @@ class GLObject{
 		void offsetAxis(const glm::vec3& offset);
 		void setAngle(GLfloat angle);
 		void offsetAngle(const GLfloat& angle);
+		void setScale(glm::vec3 newScale);
+		void offsetScale(const glm::vec3& offset);
 		glm::vec3 getPos();
 		glm::vec3 getAxis();
+		glm::vec3 getScale();
 		GLfloat getAngle();
 		void push(const GLAttrib& attrib);
 		void push(const GLBuffer& buffer);
