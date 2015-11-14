@@ -11,6 +11,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <list>
 #include <fstream>
 #include <iostream>
 #include <string.h>
@@ -24,10 +25,11 @@
 class GLObject{
 	private:
 		GLuint vao;
-		GLint mMatLoc;
+		static GLint mMatLoc;
 		std::vector<GLAttrib> Attribs;
 		std::vector<GLBuffer> Buffers;//namely, vertex Indices
-		GLUniform<glm::mat4> mMat;
+		std::list<GLObject*> Children;
+		glm::mat4 mMat;
 		glm::vec3 Position;
 		glm::vec3 RotAxis;
 		GLfloat angle;
@@ -44,8 +46,10 @@ class GLObject{
 		GLfloat getAngle();
 		void push(const GLAttrib& attrib);
 		void push(const GLBuffer& buffer);
+		void push(std::shared_ptr<GLObject>& child);
+		void push(GLObject* child);
 		void apply();
-		void draw();
+		void draw(const glm::mat4& absMat);
 		void relocate(GLuint shaderProgram);
 		//update
 		~GLObject();

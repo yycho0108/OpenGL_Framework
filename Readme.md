@@ -61,7 +61,14 @@ Example :
 ``` c++
  GLAttrib* vertexPositions = new GLAttrib(vPosData,size,elemSize,AttribLocation);
 ```
+## *GLUniform
+### Manages GL Uniforms
 
+Example : 
+
+``` c++
+
+```
 ## *GLBuffer
 ### Manages general-purpose buffers
 

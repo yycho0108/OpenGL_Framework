@@ -84,14 +84,14 @@ class myApp:public App{
 		Cube->setAxis(glm::vec3(0.0f,0.0f,0.9f));
 		Cube->offsetAngle(1.0f);
 		//Cube->offsetPos(glm::vec3(0.01f,0.0f,0.0f));
-		Cube->apply();
-		Cube->draw();
-		
-		Cube_2->setAxis(glm::vec3(0.0f,0.0f,0.5f));
+		Cube_2->setAxis(glm::vec3(0.0f,1.0f,0.2f));
 		Cube_2->offsetAngle(-1.0f);
-		//Cube_2->offsetPos(glm::vec3(0.0f,0.0f,-0.1f));
-		Cube_2->apply();
-		Cube_2->draw();
+		
+		Cube->apply();
+		Cube->draw(glm::mat4());
+		
+		//Cube_2->apply();
+		//Cube_2->draw(glm::mat4());
 
 	}
 	
@@ -112,7 +112,7 @@ class myApp:public App{
 			vCubeCol[i] = rand()/float(RAND_MAX);
 			vCubeCol[i+1] = rand()/float(RAND_MAX);
 			vCubeCol[i+2] = rand()/float(RAND_MAX);
-			vCubeCol[i+3] = 1.0;
+			vCubeCol[i+3] = rand()/float(RAND_MAX);//i.0;
 		}
 		auto vPos = new GLAttrib(::vCubePos,sizeof(::vCubePos),3,0);
 		auto vCol = new GLAttrib(::vCubeCol,96*sizeof(float),4,1);
@@ -131,7 +131,8 @@ class myApp:public App{
 		//glCullFace(GL_BACK);
 		//glFrontFace(GL_CW);
 		Cube->setPos(glm::vec3(1.0f,0.0f,5.0f));
-		Cube_2->setPos(glm::vec3(0.0f,0.0f,6.0f));
+		Cube_2->setPos(glm::vec3(0.0f,0.0f,2.0f));
+		Cube->push(Cube_2);
 	};
 };
 void mouseEvent(GLFWwindow* window, double xPos, double yPos){
